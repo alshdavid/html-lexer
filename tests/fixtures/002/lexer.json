@@ -1,0 +1,8 @@
+[
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", " >"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"]
+]

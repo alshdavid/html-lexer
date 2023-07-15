@@ -1,0 +1,19 @@
+[
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["data", "foo"],
+  ["startTagStart", "<"],
+  ["tagName", "span"],
+  ["tagEnd", ">"],
+  ["data", "bar"],
+  ["endTagStart", "</"],
+  ["tagName", "span"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"]
+]

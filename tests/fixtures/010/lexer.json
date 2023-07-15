@@ -1,0 +1,20 @@
+[
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagSpace", " "],
+  ["attributeName", "[(foo)]"],
+  ["attributeAssign", "="],
+  ["attributeValueStart", "\""],
+  ["attributeValueData", "bar"],
+  ["attributeValueEnd", "\""],
+  ["tagSpace", " "],
+  ["attributeName", "baz"],
+  ["attributeAssign", "="],
+  ["attributeValueStart", "\""],
+  ["attributeValueData", "buzz"],
+  ["attributeValueEnd", "\""],
+  ["tagEnd", ">"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"]
+]

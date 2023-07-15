@@ -1,0 +1,11 @@
+[
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["data", "foo"],
+  ["space", " "],
+  ["data", "bar"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"]
+]

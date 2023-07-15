@@ -4,7 +4,8 @@
   "description": "An HTML5 lexer",
   "type": "module",
   "scripts": {
-    "validate": "npx tsc -p tsconfig.json"
+    "check-js": "npx tsc -p tsconfig.json",
+    "test": "node ./tests/tests.mjs"
   },
   "exports": {
     ".": [
