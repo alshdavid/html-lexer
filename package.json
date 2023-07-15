@@ -1,17 +1,15 @@
 {
-  "name": "html-lexer",
-  "version": "0.5.0",
+  "name": "@alshdavid/html-lexer",
+  "version": "0.0.1",
   "description": "An HTML5 lexer",
-  "main": "dist/html-lexer.js",
-  "module": "dist/html-lexer.mjs",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "validate": "npx tsc -p tsconfig.json"
   },
   "exports": {
     ".": [
       {
-        "import": "./dist/html-lexer.mjs",
-        "require": "./dist/html-lexer.js"
+        "import": "./lib/index.mjs"
       }
     ]
   },
@@ -32,9 +30,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alwinb/html-lexer.git"
+    "url": "https://github.com/alshdavid/html-lexer.git"
   },
-  "author": "Alwin Blok",
   "license": "MIT",
-  "dependencies": {}
+  "files": [
+    "lib",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "typescript": "^5.1.6"
+  }
 }
