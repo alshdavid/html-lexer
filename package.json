@@ -11,7 +11,7 @@
     "clean:esm": "node ./.github/clean.mjs esm",
     "clean:cjs": "node ./.github/clean.mjs cjs",
     "clean:types": "node ./.github/clean.mjs types",
-    "format": "npx prettier --write ./lib/**/* ./tests/**/*.mjs ./tests/**/*.html --list-different",
+    "format": "npx prettier --write ./src/**/*.ts ./tests/**/*.ts ./tests/**/*.html --list-different",
     "test": "node -r esbuild-register ./tests/tests.ts"
   },
   "exports": {

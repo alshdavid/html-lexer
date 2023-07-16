@@ -1,13 +1,13 @@
-import { states as S } from '../states/index.mjs'
-import { PREFIXED, LEGACY } from '../characters/index.mjs'
-import { LegacyTokenLabel } from './token-index-override.mjs'
+import { states as S } from '../states'
+import { PREFIXED, LEGACY } from '../characters'
+import { LegacyTokenLabel } from './token-index-override'
+import { LegacyLexerResults } from './interface'
 
-/** @returns {[LegacyTokenLabel, string][]} */
 export function splitCharRef(
-  /** @type {string} */ string,
-  /** @type {number} */ entry,
-  /** @type {string} */ nextChar
-) {
+  string: string,
+  entry: number,
+  nextChar: string
+): LegacyLexerResults {
   // A semicolon-terminated, known charref
   if (PREFIXED.test(string)) {
     return [[LegacyTokenLabel.charRefNamed, string]]

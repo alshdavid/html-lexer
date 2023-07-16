@@ -1,4 +1,4 @@
-import { TokenType, TokenIndex, TokenLabel } from '../tokens/index.mjs'
+import { TokenType, TokenIndex, TokenLabel } from '../tokens'
 
 // TokenTypes
 // ----------
@@ -7,9 +7,7 @@ import { TokenType, TokenIndex, TokenLabel } from '../tokens/index.mjs'
 // It renames some of the token-types to maintain some
 // compatibility with previous versions of html-lexer.
 
-/**
- * @typedef {typeof LegacyTokenLabel[keyof typeof LegacyTokenLabel]} LegacyTokenLabel
- * @readonly */
+export type LegacyTokenLabel = typeof LegacyTokenLabel[keyof typeof LegacyTokenLabel]
 export const LegacyTokenLabel = Object.freeze({
   ...TokenLabel,
   tagSpace: 'tagSpace',
@@ -21,9 +19,7 @@ export const LegacyTokenLabel = Object.freeze({
   uncodedAmpersand: 'uncodedAmpersand',
 })
 
-/**
- * @typedef {typeof LegacyTokenIndex[keyof typeof LegacyTokenIndex]} LegacyTokenIndex
- * @readonly */
+export type LegacyTokenIndex = typeof LegacyTokenIndex[keyof typeof LegacyTokenIndex]
 export const LegacyTokenIndex = Object.freeze({
   ...TokenIndex,
   [TokenType.unquoted]: TokenLabel.attributeValueData,

@@ -1,59 +1,28 @@
-import { TokenLabel } from '../tokens/index.mjs'
-import { states as S, minAccepts } from '../states/index.mjs'
-import { defaultClass, eqClass } from '../characters/index.mjs'
-import { table } from '../table/index.mjs'
-import { TokenType } from '../tokens/index.mjs'
-import { splitCharRef } from '../lexer/split-char-ref.mjs'
-import { contentMap } from '../lexer/content-map.mjs'
-import { FAIL, errorToken } from '../lexer/tokens.mjs'
-import { LegacyTokenIndex, LegacyTokenLabel } from './token-index-override.mjs'
+import { TokenLabel } from '../tokens'
+import { states as S, minAccepts } from '../states'
+import { defaultClass, eqClass } from '../characters'
+import { table } from '../table'
+import { TokenType } from '../tokens'
+import { splitCharRef } from '../lexer/split-char-ref'
+import { contentMap } from '../lexer/content-map'
+import { FAIL, errorToken } from '../lexer/tokens'
+import { LegacyTokenIndex } from './token-index-override'
+import { DisposeCallback, ILegacyLexer, LegacyLexerResult, LegacyOnWriteCallback, OnEndCallback } from './interface'
 
-/** @typedef {[LegacyTokenLabel, string]} LegacyLexerResult */
-/** @typedef {LegacyLexerResult[]} LegacyLexerResults */
-
-/** @typedef {(token: LegacyLexerResult) => any} OnWriteCallback */
-/** @typedef {() => any} OnEndCallback */
-/** @typedef {() => any} DisposeCallback */
-
-export class LegacyLexer {
-  /** @type {Set<OnWriteCallback>} */
-  #onWriteCallbacks
-
-  /** @type {Set<OnEndCallback>} */
-  #onEndCallbacks
-
-  /** @type {string} */
-  #buffer
-
-  /** @type {boolean} */
-  #closed
-
-  /** @type {number} */
-  #line
-
-  /** @type {number} */
-  #lastnl
-
-  /** @type {number} */
-  #_c
-
-  /** @type {number} */
-  #anchor
-
-  /** @type {number} */
-  #end
-
-  /** @type {number} */
-  #pos
-
-  /** @type {number} */
-  #entry
-
-  /** @type {number} */
-  #lastTagType
-
-  /** @type {string} */
-  #lastStartTagName
+export class LegacyLexer implements ILegacyLexer {
+  #onWriteCallbacks: Set<LegacyOnWriteCallback>
+  #onEndCallbacks: Set<OnEndCallback>
+  #buffer: string
+  #closed: boolean
+  #line: number
+  #lastnl: number
+  #_c: number
+  #anchor: number
+  #end: number
+  #pos: number
+  #entry: number
+  #lastTagType: number
+  #lastStartTagName: string
 
   constructor() {
     this.#onWriteCallbacks = new Set()
@@ -71,40 +40,23 @@ export class LegacyLexer {
     this.#lastStartTagName = ''
   }
 
-  /** @returns {LegacyLexerResults} */
-  static tokenize(/** @type {string} */ code) {
-    /** @type {LegacyLexerResults} */
-    const result = []
-
-    const lexer = new LegacyLexer()
-    lexer.onWrite((tokens) => result.push(tokens))
-    lexer.write(code)
-    lexer.end()
-    
-    return result
-  }
-
-  /** @returns {DisposeCallback} */
-  onWrite(/** @type {OnWriteCallback} */ callback) {
+  onWrite(callback: LegacyOnWriteCallback): DisposeCallback {
     if (this.#closed) throw new Error('Cannot subscribe, Lexer has completed')
     this.#onWriteCallbacks.add(callback)
     return () => this.#onWriteCallbacks.delete(callback)
   }
 
-  /** @returns {DisposeCallback} */
-  onEnd(/** @type {OnEndCallback} */ callback) {
+  onEnd(callback: OnEndCallback): DisposeCallback {
     if (this.#closed) throw new Error('Cannot subscribe, Lexer has completed')
     this.#onEndCallbacks.add(callback)
     return () => this.#onEndCallbacks.delete(callback)
   }
 
-  /** @returns {void} */
-  write(/** @type {string} */ input) {
+  write(/** @type {string} */ input: string): void {
     this.#buffer += input
     const length = this.#buffer.length
     while (this.#pos < length) {
-      /** @type {number | undefined} */
-      let state = this.#entry
+      let state: number | undefined = this.#entry
       let exit = this.#entry < minAccepts ? FAIL : this.#entry
       do {
         const c = this.#buffer.charCodeAt(this.#pos++)
@@ -136,8 +88,7 @@ export class LegacyLexer {
     this.#anchor = this.#pos = this.#end = 0
   }
 
-  /** @returns {void} */
-  end() {
+  end(): void {
     this.#closed = true
     this.write('')
     this.#triggerEndCallback()
@@ -145,20 +96,18 @@ export class LegacyLexer {
     this.#onEndCallbacks.clear()
   }
 
-  /** @returns {{ line: number, column: number }} */
-  getPosition() {
+  getPosition(): { line: number, column: number } {
     return {
       line: this.#line,
       column: this.#pos - this.#lastnl,
     }
   }
 
-  /** @returns {number | undefined} */
   #emit(
-    /** @type {number} */ type,
-    /** @type {number} */ _anchor,
-    /** @type {number} */ end
-  ) {
+    type: number,
+    _anchor: number,
+    end: number
+  ): number | undefined {
     if (type === errorToken) {
       const message = `Lexer error at line ${this.#line}:${
         this.#pos - this.#lastnl
@@ -255,11 +204,11 @@ export class LegacyLexer {
     return undefined
   }
 
-  #triggerWriteCallback(/** @type {LegacyLexerResult} */ value) {
+  #triggerWriteCallback(value: LegacyLexerResult): void {
     for (const callback of this.#onWriteCallbacks) callback(value)
   }
 
-  #triggerEndCallback() {
+  #triggerEndCallback(): void {
     for (const callback of this.#onEndCallbacks) callback()
   }
 }
