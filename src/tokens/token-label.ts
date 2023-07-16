@@ -1,4 +1,4 @@
-export type TokenLabel = typeof TokenLabel[keyof typeof TokenLabel]
+export type TokenLabel = (typeof TokenLabel)[keyof typeof TokenLabel]
 export const TokenLabel = Object.freeze({
   errorToken: 'errorToken',
   data: 'data',

@@ -1,4 +1,18 @@
-import { Main, RcData, RawText, TOP, BeforeAttribute, BeforeAssign, BeforeValue, BeforeCommentData, InCommentData, Bogus, ValueQuoted, ValueAposed, ValueUnquoted } from "./states";
+import {
+  Main,
+  RcData,
+  RawText,
+  TOP,
+  BeforeAttribute,
+  BeforeAssign,
+  BeforeValue,
+  BeforeCommentData,
+  InCommentData,
+  Bogus,
+  ValueQuoted,
+  ValueAposed,
+  ValueUnquoted,
+} from './states'
 
 export const entryStates = {
   Main,

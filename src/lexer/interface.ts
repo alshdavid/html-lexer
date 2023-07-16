@@ -11,5 +11,5 @@ export interface ILexer {
   onEnd(callback: OnEndCallback): DisposeCallback
   write(input: string): void
   end(): void
-  getPosition(): { line: number, column: number }
+  getPosition(): { line: number; column: number }
 }

@@ -1,5 +1,5 @@
-import { LexerResults } from "./interface"
-import { Lexer } from "./lexer"
+import { LexerResults } from './interface'
+import { Lexer } from './lexer'
 
 export function tokenize(code: string): LexerResults {
   const result: LexerResults = []
@@ -8,6 +8,6 @@ export function tokenize(code: string): LexerResults {
   lexer.onWrite((tokens) => result.push(tokens))
   lexer.write(code)
   lexer.end()
-  
+
   return result
 }

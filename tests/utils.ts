@@ -38,7 +38,9 @@ export async function writeFile(
   await fsAsync.writeFile(targetFile, content, 'utf8')
 }
 
-export async function readJson<T = unknown>(...filepathSegments: string[]): Promise<T> {
+export async function readJson<T = unknown>(
+  ...filepathSegments: string[]
+): Promise<T> {
   return JSON.parse(await readFile(...filepathSegments))
 }
 

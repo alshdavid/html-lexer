@@ -1,7 +1,7 @@
 import { TokenType } from './token-type'
 import { TokenLabel } from './token-label'
 
-export type TokenIndex = typeof TokenIndex[keyof typeof TokenIndex]
+export type TokenIndex = (typeof TokenIndex)[keyof typeof TokenIndex]
 export const TokenIndex = Object.freeze({
   [TokenType.errorToken]: TokenLabel.errorToken,
   [TokenType.data]: TokenLabel.data,
@@ -36,4 +36,4 @@ export const TokenIndex = Object.freeze({
   [TokenType.unquoted]: TokenLabel.unquoted,
   [TokenType.squoted]: TokenLabel.squoted,
   [TokenType.quoted]: TokenLabel.quoted,
-} as const) 
+} as const)

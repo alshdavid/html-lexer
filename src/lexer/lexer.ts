@@ -5,7 +5,13 @@ import { table } from '../table'
 import { splitCharRef } from './split-char-ref'
 import { contentMap } from './content-map'
 import { FAIL, errorToken } from './tokens'
-import { DisposeCallback, ILexer, LexerResult, OnEndCallback, OnWriteCallback } from './interface'
+import {
+  DisposeCallback,
+  ILexer,
+  LexerResult,
+  OnEndCallback,
+  OnWriteCallback,
+} from './interface'
 
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>
@@ -94,18 +100,14 @@ export class Lexer implements ILexer {
     this.#onEndCallbacks.clear()
   }
 
-  getPosition(): { line: number, column: number } {
+  getPosition(): { line: number; column: number } {
     return {
       line: this.#line,
       column: this.#pos - this.#lastnl,
     }
   }
 
-  #emit(
-    type: number,
-    _anchor: number,
-    end: number
-  ): number | undefined {
+  #emit(type: number, _anchor: number, end: number): number | undefined {
     if (type === errorToken) {
       const message = `Lexer error at line ${this.#line}:${
         this.#pos - this.#lastnl

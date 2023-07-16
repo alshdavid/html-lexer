@@ -7,7 +7,13 @@ import { splitCharRef } from '../lexer/split-char-ref'
 import { contentMap } from '../lexer/content-map'
 import { FAIL, errorToken } from '../lexer/tokens'
 import { LegacyTokenIndex } from './token-index-override'
-import { DisposeCallback, ILegacyLexer, LegacyLexerResult, LegacyOnWriteCallback, OnEndCallback } from './interface'
+import {
+  DisposeCallback,
+  ILegacyLexer,
+  LegacyLexerResult,
+  LegacyOnWriteCallback,
+  OnEndCallback,
+} from './interface'
 
 export class LegacyLexer implements ILegacyLexer {
   #onWriteCallbacks: Set<LegacyOnWriteCallback>
@@ -96,18 +102,14 @@ export class LegacyLexer implements ILegacyLexer {
     this.#onEndCallbacks.clear()
   }
 
-  getPosition(): { line: number, column: number } {
+  getPosition(): { line: number; column: number } {
     return {
       line: this.#line,
       column: this.#pos - this.#lastnl,
     }
   }
 
-  #emit(
-    type: number,
-    _anchor: number,
-    end: number
-  ): number | undefined {
+  #emit(type: number, _anchor: number, end: number): number | undefined {
     if (type === errorToken) {
       const message = `Lexer error at line ${this.#line}:${
         this.#pos - this.#lastnl

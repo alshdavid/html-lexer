@@ -6,7 +6,7 @@ import { LexerResults } from './interface'
 export function splitCharRef(
   string: string,
   entry: number,
-  nextChar: string,
+  nextChar: string
 ): LexerResults {
   // A semicolon-terminated, known charref
   if (PREFIXED.test(string)) {

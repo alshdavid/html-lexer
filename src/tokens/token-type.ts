@@ -1,4 +1,4 @@
-export type TokenType = typeof TokenType[keyof typeof TokenType]
+export type TokenType = (typeof TokenType)[keyof typeof TokenType]
 export const TokenType = Object.freeze({
   errorToken: 0,
   data: 1,
