@@ -8,6 +8,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.4.2
     version: 20.4.2
+  html-lexer:
+    specifier: ^0.5.0
+    version: 0.5.0
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -16,6 +19,10 @@ packages:
 
   /@types/node@20.4.2:
     resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
+    dev: true
+
+  /html-lexer@0.5.0:
+    resolution: {integrity: sha512-ZD0S9K68Vz/vRgKZQIIZCb+YL3Se/QkzInng+CNMkKLX1kXV8DZ2F2cU6GtIR9Q2j+1K7j3XEFY2RafGaTG9aw==}
     dev: true
 
   /typescript@5.1.6:
