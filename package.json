@@ -1,17 +1,27 @@
 {
   "name": "@alshdavid/html-lexer",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "An HTML5 lexer",
   "type": "module",
   "scripts": {
+    "build": "npm run check-js && npm run build-types",
     "check-js": "npx tsc -p tsconfig.json",
+    "build-types": "npm run clean && npx tsc -p ./.github/tsconfig.build.json",
+    "clean": "node -e \"const fs = require('node:fs'); const p = require('node:path'); fs.existsSync(p.join(__dirname, 'types')) && fs.rmSync(p.join(__dirname, 'types'), { recursive: true })\"",
     "format": "npx prettier --write ./lib/**/* ./tests/**/*.mjs ./tests/**/*.html --list-different",
     "test": "node ./tests/tests.mjs"
   },
   "exports": {
     ".": [
       {
-        "import": "./lib/index.mjs"
+        "import": "./lib/index.mjs",
+        "types": "./types/index.d.mts"
+      }
+    ],
+    "./legacy": [
+      {
+        "import": "./lib/legacy/index.mjs",
+        "types": "./types/legacy/index.d.mts"
       }
     ]
   },
