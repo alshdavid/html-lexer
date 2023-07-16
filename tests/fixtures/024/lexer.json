@@ -1,190 +1,49 @@
 [
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "space",
-    "  "
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "data",
-    "{{"
-  ],
-  [
-    "space",
-    " "
-  ],
-  [
-    "data",
-    "foo"
-  ],
-  [
-    "space",
-    " "
-  ],
-  [
-    "data",
-    "}}"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "space",
-    "  "
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "input"
-  ],
-  [
-    "tagSpace",
-    " "
-  ],
-  [
-    "attributeName",
-    "[(value)]"
-  ],
-  [
-    "attributeAssign",
-    "="
-  ],
-  [
-    "attributeValueStart",
-    "\""
-  ],
-  [
-    "attributeValueData",
-    "foo"
-  ],
-  [
-    "attributeValueEnd",
-    "\""
-  ],
-  [
-    "tagEndAutoclose",
-    " />"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "space",
-    "  "
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "button"
-  ],
-  [
-    "tagSpace",
-    " "
-  ],
-  [
-    "attributeName",
-    "(click)"
-  ],
-  [
-    "attributeAssign",
-    "="
-  ],
-  [
-    "attributeValueStart",
-    "\""
-  ],
-  [
-    "attributeValueData",
-    "console.log(foo)"
-  ],
-  [
-    "attributeValueEnd",
-    "\""
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "data",
-    "submit"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "button"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ]
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["data", "{{"],
+  ["space", " "],
+  ["data", "foo"],
+  ["space", " "],
+  ["data", "}}"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["startTagStart", "<"],
+  ["tagName", "input"],
+  ["tagSpace", " "],
+  ["attributeName", "[(value)]"],
+  ["attributeAssign", "="],
+  ["attributeValueStart", "\""],
+  ["attributeValueData", "foo"],
+  ["attributeValueEnd", "\""],
+  ["tagEndAutoclose", " />"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["startTagStart", "<"],
+  ["tagName", "button"],
+  ["tagSpace", " "],
+  ["attributeName", "(click)"],
+  ["attributeAssign", "="],
+  ["attributeValueStart", "\""],
+  ["attributeValueData", "console.log(foo)"],
+  ["attributeValueEnd", "\""],
+  ["tagEnd", ">"],
+  ["data", "submit"],
+  ["endTagStart", "</"],
+  ["tagName", "button"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"]
 ]

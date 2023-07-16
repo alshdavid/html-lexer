@@ -1,122 +1,32 @@
 [
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "space",
-    "  "
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "space",
-    "  "
-  ],
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ]
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["space", "  "],
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"]
 ]

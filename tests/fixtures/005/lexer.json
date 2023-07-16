@@ -1,62 +1,17 @@
 [
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagSpace",
-    " "
-  ],
-  [
-    "attributeName",
-    "foo"
-  ],
-  [
-    "tagSpace",
-    " "
-  ],
-  [
-    "attributeName",
-    "bar"
-  ],
-  [
-    "attributeAssign",
-    "="
-  ],
-  [
-    "attributeValueStart",
-    "\""
-  ],
-  [
-    "attributeValueData",
-    "foobar"
-  ],
-  [
-    "attributeValueEnd",
-    "\""
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ]
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagSpace", " "],
+  ["attributeName", "foo"],
+  ["tagSpace", " "],
+  ["attributeName", "bar"],
+  ["attributeAssign", "="],
+  ["attributeValueStart", "\""],
+  ["attributeValueData", "foobar"],
+  ["attributeValueEnd", "\""],
+  ["tagEnd", ">"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"]
 ]

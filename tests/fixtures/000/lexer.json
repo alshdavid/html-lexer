@@ -1,18 +1,6 @@
 [
-  [
-    "data",
-    "Hello"
-  ],
-  [
-    "space",
-    " "
-  ],
-  [
-    "data",
-    "world"
-  ],
-  [
-    "newline",
-    "\n"
-  ]
+  ["data", "Hello"],
+  ["space", " "],
+  ["data", "world"],
+  ["newline", "\n"]
 ]

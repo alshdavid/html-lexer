@@ -1,34 +1,10 @@
 [
-  [
-    "startTagStart",
-    "<"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "data",
-    "foo"
-  ],
-  [
-    "endTagStart",
-    "</"
-  ],
-  [
-    "tagName",
-    "div"
-  ],
-  [
-    "tagEnd",
-    ">"
-  ],
-  [
-    "newline",
-    "\n"
-  ]
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["data", "foo"],
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"]
 ]
