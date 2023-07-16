@@ -1,4 +1,4 @@
-import * as chars from './characters.js'
+import * as chars from './characters'
 
 export const defaultClass = chars.other
 

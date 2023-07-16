@@ -1,11 +1,11 @@
-import { TokenLabel, TokenType, TokenIndex } from '../tokens/index.js'
-import { states as S, minAccepts } from '../states/index.js'
-import { defaultClass, eqClass } from '../characters/index.js'
-import { table } from '../table/index.js'
-import { splitCharRef } from './split-char-ref.js'
-import { contentMap } from './content-map.js'
-import { FAIL, errorToken } from './tokens.js'
-import { DisposeCallback, ILexer, LexerResult, OnEndCallback, OnWriteCallback } from './interface.js'
+import { TokenLabel, TokenType, TokenIndex } from '../tokens'
+import { states as S, minAccepts } from '../states'
+import { defaultClass, eqClass } from '../characters'
+import { table } from '../table'
+import { splitCharRef } from './split-char-ref'
+import { contentMap } from './content-map'
+import { FAIL, errorToken } from './tokens'
+import { DisposeCallback, ILexer, LexerResult, OnEndCallback, OnWriteCallback } from './interface'
 
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>

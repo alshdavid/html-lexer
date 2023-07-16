@@ -1,7 +1,7 @@
-import { states as S } from '../states/index.js'
-import { PREFIXED, LEGACY } from '../characters/index.js'
-import { TokenLabel } from '../tokens/index.js'
-import { LexerResults } from './interface.js'
+import { states as S } from '../states'
+import { PREFIXED, LEGACY } from '../characters'
+import { TokenLabel } from '../tokens'
+import { LexerResults } from './interface'
 
 export function splitCharRef(
   string: string,

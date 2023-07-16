@@ -1,3 +1,3 @@
-export * from './legacy.js'
-export * from './characters.js'
-export * from './eq-class.js'
+export * from './legacy'
+export * from './characters'
+export * from './eq-class'

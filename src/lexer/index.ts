@@ -1,3 +1,3 @@
-export * from './lexer.js'
-export * from './interface.js'
-export * from './tokenize.js'
+export * from './lexer'
+export * from './interface'
+export * from './tokenize'

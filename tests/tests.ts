@@ -5,8 +5,9 @@ import {
   readJson,
   loadCases,
   writeFile,
-} from './utils.js'
-import { LexerResults, tokenize } from '../src/index.js'
+} from './utils'
+
+import { LexerResults, tokenize } from '../src'
 import * as fs from 'node:fs'
 
 (async () => {

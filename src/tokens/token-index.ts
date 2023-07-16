@@ -1,5 +1,5 @@
-import { TokenType } from './token-type.js'
-import { TokenLabel } from './token-label.js'
+import { TokenType } from './token-type'
+import { TokenLabel } from './token-label'
 
 export type TokenIndex = typeof TokenIndex[keyof typeof TokenIndex]
 export const TokenIndex = Object.freeze({

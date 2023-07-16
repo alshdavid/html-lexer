@@ -1,5 +1,5 @@
-import { TokenType } from '../tokens/index.js'
-import * as states from '../states/index.js'
+import { TokenType } from '../tokens'
+import * as states from '../states'
 
 // State Transitions
 // -----------------

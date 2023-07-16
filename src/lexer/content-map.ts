@@ -1,4 +1,4 @@
-import { states as S } from '../states/index.js'
+import { states as S } from '../states'
 
 // The contentMap defines the lexer state to use
 // immediately _after_ specific html start-tags.

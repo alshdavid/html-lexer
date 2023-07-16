@@ -1,6 +1,6 @@
-import { Main, TOP } from './states.js'
+import { Main, TOP } from './states'
 
-export * from './states.js'
-export { entryStates as states } from './entry-states.js'
+export * from './states'
+export { entryStates as states } from './entry-states'
 export { Main as initialState }
 export { TOP as minAccepts }

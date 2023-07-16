@@ -12,7 +12,7 @@
     "clean:cjs": "node ./.github/clean.mjs cjs",
     "clean:types": "node ./.github/clean.mjs types",
     "format": "npx prettier --write ./lib/**/* ./tests/**/*.mjs ./tests/**/*.html --list-different",
-    "test": "ts-node --loader esbuild-register/loader -r esbuild-register ./tests/tests.ts"
+    "test": "node -r esbuild-register ./tests/tests.ts"
   },
   "exports": {
     ".": [
@@ -53,6 +53,8 @@
   ],
   "devDependencies": {
     "@types/node": "^20.4.2",
+    "esbuild": "^0.18.13",
+    "esbuild-register": "^3.4.2",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6"
   }

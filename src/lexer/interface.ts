@@ -1,4 +1,4 @@
-import { TokenLabel } from '../tokens/index.js'
+import { TokenLabel } from '../tokens'
 
 export type LexerResult = [TokenLabel, string]
 export type LexerResults = LexerResult[]

@@ -1,5 +1,5 @@
-import { LexerResults } from "./interface.js"
-import { Lexer } from "./lexer.js"
+import { LexerResults } from "./interface"
+import { Lexer } from "./lexer"
 
 export function tokenize(code: string): LexerResults {
   const result: LexerResults = []
