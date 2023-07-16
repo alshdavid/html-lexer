@@ -7,8 +7,6 @@ import {
   writeFile,
 } from "./utils.mjs";
 import { tokenize } from "../lib/index.mjs";
-// import { tokenize as tokenizeLegacy } from "../lib/legacy/lexer-legacy.mjs";
-// import { tokenize as tokenizeOriginal } from "../lib/original/index.mjs";
 import * as fs from "node:fs";
 
 const VERBOSE = process.argv.includes("--verbose");
@@ -38,6 +36,7 @@ for (const [caseDir, caseName, caseNumber] of loadCases()) {
   const expected = await readJson(caseDir, "lexer.json");
   
   const html = await readFile(caseDir, "index.html");
+  
   const actual = tokenize(html);
 
   try {
