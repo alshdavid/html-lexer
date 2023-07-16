@@ -6,7 +6,7 @@ import {
   loadCases,
   writeFile,
 } from './utils.mjs'
-import { tokenize } from '../lib/index.mjs'
+import { Lexer } from '../lib/index.mjs'
 import * as fs from 'node:fs'
 
 const VERBOSE = process.argv.includes('--verbose')
@@ -36,8 +36,7 @@ for (const [caseDir, caseName, caseNumber] of loadCases()) {
   const expected = await readJson(caseDir, 'lexer.json')
 
   const html = await readFile(caseDir, 'index.html')
-
-  const actual = tokenize(html)
+  const actual = new Lexer({ useLegacyTokens: true }).tokenize(html)
 
   try {
     assert.deepEqual(
@@ -57,12 +56,12 @@ for (const [caseDir, caseName, caseNumber] of loadCases()) {
       console.error(error)
     }
     console.log(`❌ ${caseNumber}`)
-    await writeFile([...format(expected)].join('\n'), [
+    await writeFile([...format(expected, false)].join('\n'), [
       __reportdir(),
       caseName,
       'expects.txt',
     ])
-    await writeFile([...format(actual)].join('\n'), [
+    await writeFile([...format(actual, false)].join('\n'), [
       __reportdir(),
       caseName,
       'received.txt',
