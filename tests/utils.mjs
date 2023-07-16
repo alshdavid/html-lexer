@@ -9,6 +9,10 @@ function __dirname() {
   return path.dirname(import.meta.url).replace('file://', '')
 }
 
+export function __reportdir() {
+  return path.join(__dirname(), 'reports')
+}
+
 export function loadCases() {
   const __fixtures = path.join(__dirname(), 'fixtures')
 
@@ -25,7 +29,11 @@ export async function readFile(/** @type {string[]} */...filepathSegments) {
 }
 
 export async function writeFile(/** @type {string} */ content, /** @type {string[]} */ filepathSegments) {
-  await fsAsync.writeFile(path.join(...filepathSegments), content, 'utf8')
+  const targetFile = path.join(...filepathSegments)
+  if (!fs.existsSync(path.dirname(targetFile))) {
+    fs.mkdirSync(path.dirname(targetFile), { recursive: true })
+  }
+  await fsAsync.writeFile(targetFile, content, 'utf8')
 }
 
 export async function readJson(/** @type {string[]} */ ...filepathSegments) {

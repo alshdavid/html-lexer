@@ -1,16 +1,22 @@
 import * as assert from 'node:assert';
-import { readFile, readJson, loadCases } from './utils.mjs'
+import { __reportdir, readFile, readJson, loadCases, writeFile } from './utils.mjs'
 import { tokenize } from '../lib/index.mjs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 const VERBOSE = process.argv.includes('--verbose')
 
 const TEST_ONLY = process.env['TEST_ONLY'] 
   ? process.env['TEST_ONLY'].split(',').map(i => parseInt(i, 10)) 
-  : undefined
+  : [20]
 
 let failed = false
+if (fs.existsSync(__reportdir())) {
+  fs.rmSync(__reportdir(), { recursive : true })
+}
+fs.mkdirSync(__reportdir(), { recursive: true })
 
-for (const [caseDir, _, caseNumber] of loadCases()) {
+for (const [caseDir, caseName, caseNumber] of loadCases()) {
   if (caseDir.endsWith('.skip')) {
     console.log(`⚠️  ${caseNumber}`)
     continue
@@ -27,6 +33,9 @@ for (const [caseDir, _, caseNumber] of loadCases()) {
   /** @type {import('../lib/index.mjs').LexerResults} */
   const expected = await readJson(caseDir, 'lexer.json')
 
+  console.log(expected)
+  console.log(actual)
+
   try {
     assert.deepEqual(actual, expected, [
       'Failed to generate tokens',
@@ -41,6 +50,8 @@ for (const [caseDir, _, caseNumber] of loadCases()) {
       console.error(error)
     }
     console.log(`❌ ${caseNumber}`)
+    await writeFile([...format(expected)].join('\n'), [__reportdir(), caseName, 'expects.txt'])
+    await writeFile([...format(actual)].join('\n'), [__reportdir(), caseName, 'received.txt'])
     failed = true
     continue
   }
@@ -54,16 +65,17 @@ if (failed) {
 
 /** @returns {string[]} */
 function format(
-  /** @type {import('../lib/index.mjs').LexerResults} */ result
+  /** @type {import('../lib/index.mjs').LexerResults} */ result,
+  /** @type {boolean} */ padStart = true
 ) {
   /** @type {string[]} */
   const results = []
 
   for (const [token, value] of result) {
     if (value === '\n') {
-      results.push(`  ${token.padEnd(20)}: ${JSON.stringify(value)}`)
+      results.push(`${padStart ? '  ' : ''}${token.padEnd(20)}: ${JSON.stringify(value)}`)
     } else {
-      results.push(`  ${token.padEnd(20)}: "${value}"`)
+      results.push(`${padStart ? '  ' : ''}${token.padEnd(20)}: "${value}"`)
     }
   }
 
