@@ -1,6 +1,6 @@
 {
   "name": "@alshdavid/html-lexer",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "An HTML5 lexer",
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:types",
