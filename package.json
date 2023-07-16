@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "check-js": "npx tsc -p tsconfig.json",
-    "format": "npx prettier --write ./lib/**/* ./tests/**/*.mjs ./tests/**/*.html",
+    "format": "npx prettier --write ./lib/**/* ./tests/**/*.mjs ./tests/**/*.html --list-different",
     "test": "node ./tests/tests.mjs"
   },
   "exports": {
