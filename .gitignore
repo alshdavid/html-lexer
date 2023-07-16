@@ -2,4 +2,7 @@ dist/
 ignore/
 private/
 node_modules/
-tests/reports
+tests/reports/
+cjs/
+esm/
+types/
