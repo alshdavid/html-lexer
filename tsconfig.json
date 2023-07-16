@@ -9,7 +9,7 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "types": ["node"],
-    
+
     "strict": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
@@ -25,8 +25,6 @@
 
     "skipLibCheck": true
   },
-  "include": [
-    "lib/**/*.mjs",
-    "tests/**/*.mjs"
-  ]
+  "include": ["./lib/**/*.mjs", "./tests/**/*.mjs"],
+  "exclude": ["./lib/legacy/**/*.mjs", "./lib/original/**/*.mjs"]
 }

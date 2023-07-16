@@ -1,14 +1,54 @@
 [
-  ["startTagStart", "<"],
-  ["tagName", "div"],
-  ["tagSpace", " "],
-  ["attributeName", "[foo]"],
-  ["attributeAssign", "="],
-  ["attributeValueStart", "\""],
-  ["attributeValueData", "bar"],
-  ["attributeValueEnd", "\""],
-  ["tagEnd", ">"],
-  ["endTagStart", "</"],
-  ["tagName", "div"],
-  ["tagEnd", ">"]
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagSpace",
+    " "
+  ],
+  [
+    "attributeName",
+    "[foo]"
+  ],
+  [
+    "attributeAssign",
+    "="
+  ],
+  [
+    "attributeValueStart",
+    "\""
+  ],
+  [
+    "attributeValueData",
+    "bar"
+  ],
+  [
+    "attributeValueEnd",
+    "\""
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "endTagStart",
+    "</"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "newline",
+    "\n"
+  ]
 ]

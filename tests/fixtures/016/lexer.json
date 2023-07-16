@@ -1,11 +1,42 @@
 [
-  ["startTagStart", "<"],
-  ["tagName", "div"],
-  ["tagEnd", ">"],
-  ["startTagStart", "<"],
-  ["tagName", "div"],
-  ["tagEndAutoclose", " />"],
-  ["endTagStart", "</"],
-  ["tagName", "div"],
-  ["tagEnd", ">"]
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEndAutoclose",
+    " />"
+  ],
+  [
+    "endTagStart",
+    "</"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "newline",
+    "\n"
+  ]
 ]

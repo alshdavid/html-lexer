@@ -1,10 +1,38 @@
 [
-  ["startTagStart", "<"],
-  ["tagName", "div"],
-  ["tagSpace", " "],
-  ["attributeName", "foo"],
-  ["tagEnd", ">"],
-  ["endTagStart", "</"],
-  ["tagName", "div"],
-  ["tagEnd", ">"]
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagSpace",
+    " "
+  ],
+  [
+    "attributeName",
+    "foo"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "endTagStart",
+    "</"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "newline",
+    "\n"
+  ]
 ]

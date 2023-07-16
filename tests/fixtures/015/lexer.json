@@ -1,17 +1,66 @@
 [
-  ["startTagStart", "<"],
-  ["tagName", "div"],
-  ["tagEnd", ">"],
-  ["startTagStart", "<"],
-  ["tagName", "input"],
-  ["tagSpace", " "],
-  ["attributeName", "type"],
-  ["attributeAssign", "="],
-  ["attributeValueStart", "\""],
-  ["attributeValueData", "text"],
-  ["attributeValueEnd", "\""],
-  ["tagEndAutoclose", " />"],
-  ["endTagStart", "</"],
-  ["tagName", "div"],
-  ["tagEnd", ">"]
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "startTagStart",
+    "<"
+  ],
+  [
+    "tagName",
+    "input"
+  ],
+  [
+    "tagSpace",
+    " "
+  ],
+  [
+    "attributeName",
+    "type"
+  ],
+  [
+    "attributeAssign",
+    "="
+  ],
+  [
+    "attributeValueStart",
+    "\""
+  ],
+  [
+    "attributeValueData",
+    "text"
+  ],
+  [
+    "attributeValueEnd",
+    "\""
+  ],
+  [
+    "tagEndAutoclose",
+    " />"
+  ],
+  [
+    "endTagStart",
+    "</"
+  ],
+  [
+    "tagName",
+    "div"
+  ],
+  [
+    "tagEnd",
+    ">"
+  ],
+  [
+    "newline",
+    "\n"
+  ]
 ]
