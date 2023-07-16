@@ -1,6 +1,6 @@
 {
   "name": "@alshdavid/html-lexer",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "An HTML5 lexer",
   "type": "module",
   "scripts": {
@@ -44,7 +44,6 @@
   "devDependencies": {
     "@types/node": "^20.4.2",
     "prettier": "^3.0.0",
-    "typescript": "^5.1.6",
-    "yaml": "^2.3.1"
+    "typescript": "^5.1.6"
   }
 }

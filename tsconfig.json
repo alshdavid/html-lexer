@@ -25,6 +25,5 @@
 
     "skipLibCheck": true
   },
-  "include": ["./lib/**/*.mjs", "./tests/**/*.mjs"],
-  "exclude": ["./lib/legacy/**/*.mjs", "./lib/original/**/*.mjs"]
+  "include": ["./lib/**/*.mjs", "./tests/**/*.mjs"]
 }

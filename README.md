@@ -2,8 +2,8 @@
 
 [![NPM version][npm-image]][npm-url]
 
-[npm-image]: https://img.shields.io/npm/v/html-lexer.svg
-[npm-url]: https://npmjs.org/package/html-lexer
+[npm-image]: https://img.shields.io/npm/v/@alshdavid/html-lexer.svg
+[npm-url]: https://npmjs.org/package/@alshdavid/html-lexer
 
 A standard compliant, incremental/ streaming HTML5 lexer.
 
@@ -29,42 +29,65 @@ correctly escaped to yield valid HTML.
 The produced tokens are simply tuples (arrays) `[type, chunk]` of a token type
 and a chunk of the input string.
 
-The lexer has a ‘push parser’ API.
-The `Lexer` constructor takes as its single argument a delegate object with
-methods: `write (token)` and `end ()`.
+### Basic usage
+
+```javascript
+import { Lexer } from "@alshdavid/html-lexer"
+
+const result = Lexer.tokenize("<h1>Hello, World</h1>")
+```
+
+### Chunked usage
+
+The lexer has a ‘push parser’ API. Writes are listened to using the subscribable method `onWrite`, returning an unsubscribe function.
 
 Example:
 
 ```javascript
-const Lexer = require("html-lexer");
+import { Lexer } from "@alshdavid/html-lexer"
 
-const delegate = {
-  write: (token) => console.log(token),
-  end: () => null,
-};
+// Create lexer
+const lexer = new Lexer()
 
-const lexer = new Lexer(delegate);
-lexer.write("<h1>Hello, World</h1>");
-lexer.end();
+// Stream tokens synchronously as they are parsed
+lexer.onWrite((token) => console.log(token))
+lexer.onEnd(() => console.log("Job's done"))
+
+// Write tokens
+lexer.write("<h1>Hello, World</h1>")
+
+// Closes lexer, no more writes can occur
+lexer.end()
 ```
+### Results
 
-Results in:
+Both of the examples will create an output that looks like this:
 
 ```javascript
-["startTagStart", "<"][("tagName", "h1")][("tagEnd", ">")][("data", "Hello,")][
-  ("space", " ")
-][("data", "World")][("endTagStart", "</")][("tagName", "h1")][("tagEnd", ">")];
+["startTagStart", "<"]
+["tagName", "h1"]
+["tagEnd", ">"]
+["data", "Hello,"]
+["space", " "]
+["data", "World"]
+["endTagStart", "</"]
+["tagName", "h1"]
+["tagEnd", ">"]
 ```
 
-The lexer is incremental: `delegate.write` will be called as soon as a token is
+The lexer is incremental: `onWrite` will be called as soon as a token is
 available and you can split the input across multiple writes:
 
 ```javascript
-const lexer = new Lexer(delegate);
-lexer.write("<h");
-lexer.write("1>Hello, W");
-lexer.write("orld</h1>");
-lexer.end();
+const lexer = new Lexer()
+
+lexer.onWrite((token) => console.log(token))
+
+lexer.write("<h")
+lexer.write("1>Hello, W")
+lexer.write("orld</h1>")
+
+lexer.end()
 ```
 
 ## Token types
@@ -123,30 +146,6 @@ Otherwise the names should be self explanatory.
   The lexer interprets script tags as rawtext elements.
   This has no dire consequences, other than that html begin and
   end comment tags that may surround it, are not marked as such.
-
-## Changelog
-
-### 0.5.0
-
-The projet has been rewritten to use the fast, hand-written DFA-based lexer,
-from my related [html-parser] project.
-I have been inspired by the techniques described by [Sean Barrett] on their
-page about [table-driven lexical analyis].
-
-[html-parser]: https://github.com/alwinb/html-parser
-[Sean Barrett]: http://nothings.org
-[table-driven lexical analyis]: https://nothings.org/computer/lexing.html
-
-- **NB** Small changes have been made to the token types:
-- The `endTagPrefix` token has been removed: an `rcdata` or `rawtext` token is emitted instead.
-- The `bogusCharRef` token has been removed: an `uncodedAmpersand` token is emitted for an ampersand `&` that _does not start a character reference_ instead.
-- Stretches of NUL-characters, whitespace, and individual newlines are now emitted as separate tokens of type `nulls`, `space`, and `newline`, respectively.
-
-### 0.4.0
-
-- **NB** The token types have changed to use a more consistent naming scheme.
-- Added a Makefile for building a browser version.
-- Added a browser based test page.
 
 ## License
 

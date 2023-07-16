@@ -36,7 +36,7 @@ for (const [caseDir, caseName, caseNumber] of loadCases()) {
   const expected = await readJson(caseDir, 'lexer.json')
 
   const html = await readFile(caseDir, 'index.html')
-  const actual = new Lexer({ useLegacyTokens: true }).tokenize(html)
+  const actual = Lexer.tokenize(html)
 
   try {
     assert.deepEqual(
