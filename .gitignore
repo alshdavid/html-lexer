@@ -6,3 +6,4 @@ tests/reports/
 cjs/
 esm/
 types/
+pnpm-lock.yaml

@@ -1,3 +1,3 @@
 export * from './legacy'
 export * from './characters'
-export * from './eq-class'
+export * from './equivalence-class'

@@ -34,30 +34,8 @@ const {
 
 const ___ = states.STOP
 
-export type TableRow = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-]
+// prettier-ignore
+export type TableRow = [number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number]
 
 // prettier-ignore
 export const table: TableRow[] =  [
