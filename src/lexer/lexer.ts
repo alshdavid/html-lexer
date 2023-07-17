@@ -13,6 +13,8 @@ import {
   OnWriteCallback,
 } from './interface'
 
+
+
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>
   #onEndCallbacks: Set<OnEndCallback>

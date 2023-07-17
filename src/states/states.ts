@@ -82,3 +82,7 @@ export const nRef_ = 56
 export const dRef_ = 57
 export const xRef_ = 58
 export const NL_ = 59
+
+// Expressions
+export const EX_ = 60
+export const EXs = 61

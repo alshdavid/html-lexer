@@ -29,7 +29,7 @@ const {
   attributeName, quoted, squoted, bogusData, commentData, ampersand, charRefLegacy, 
   charRefHex, charRefDecimal, lt, bogusStart, startTagStart, endTagStart, mDeclStart,
   commentStart, tagEnd, bogusEnd, commentEnd, attributeAssign, valueStartQuot,
-  valueStartApos, valueEnd, charRefNamed
+  valueStartApos, valueEnd, charRefNamed, expressionOpen
 } = tokens
 
 const ___ = states.STOP
@@ -97,6 +97,7 @@ const table = [
 [ charRefDecimal,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___, ___ ], // dRef_  after eg. &#10;
 [ charRefHex,      ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___, ___ ], // xRef_  after eg. &#xAA;
 [ newline,         ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___, ___ ], // NL_    after CRLF or LF
+[ expressionOpen,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___, ___ ], // NL_    after CRLF or LF
 //                 nul   CR    LF    other  "     '    \s     ;     #     &     =     ?     !     -     <     >     /    0-9   A-F   G-WYZ  X     {    }  ;
 ]
 
