@@ -1,0 +1,22 @@
+[
+  ["startTagStart", "<"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+
+  ["expressionOpen", "{#"],
+  ["expressionName", "if"],
+  ["expressionSep", " "],
+  ["expressionValue", "5 + 5 === 10"],
+  ["expressionEnd", "}"],
+
+  ["data", "foo"],
+
+  ["expressionClose", "{/"],
+  ["expressionName", "if"],
+  ["expressionEnd", "}"],  
+  
+  ["endTagStart", "</"],
+  ["tagName", "div"],
+  ["tagEnd", ">"],
+  ["newline", "\n"]
+]

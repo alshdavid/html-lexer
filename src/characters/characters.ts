@@ -27,3 +27,6 @@ export const G_WYZ = 20
 
 /** @description Character "X"*/
 export const X = 21
+
+export const lbrace = 22
+export const rbrace = 23 

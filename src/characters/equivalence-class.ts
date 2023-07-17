@@ -130,9 +130,9 @@ e[0x77] = chars.G_WYZ
 e[0x78] = chars.X
 e[0x79] = chars.G_WYZ
 e[0x7a] = chars.G_WYZ
-e[0x7b] = defaultClass
+e[0x7b] = chars.lbrace
 e[0x7c] = defaultClass
-e[0x7d] = defaultClass
+e[0x7d] = chars.rbrace
 e[0x7e] = defaultClass
 e[0x7f] = defaultClass
 
