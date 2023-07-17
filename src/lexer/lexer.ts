@@ -1,6 +1,6 @@
-import { TokenLabel, TokenType, TokenIndex } from '../tokens'
-import { states as S, minAccepts, getStateLabel } from '../states'
-import { getCharFromCode, getCharLabel } from '../characters'
+import { getTokenName, tokens } from '../tokens'
+import { states as S } from '../states'
+import { getCharFromCode } from '../characters'
 import { getCellFromStateTable } from '../table'
 import { splitCharRef } from './split-char-ref'
 import { contentMap } from './content-map'
@@ -12,11 +12,6 @@ import {
   OnEndCallback,
   OnWriteCallback,
 } from './interface'
-
-const log = (...items: any[]) => console.log(items
-  .map(i => i === undefined ? '_udf' : i)
-  .map(i => i && i.toString ? i.toString() : i)
-  .map(i => (i || '').padEnd(10)).join(''))
 
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>
@@ -61,27 +56,20 @@ export class Lexer implements ILexer {
     return () => this.#onEndCallbacks.delete(callback)
   }
 
-  // < div > foo </div> \n
   write(input: string): void {
-    log(input)
     this.#buffer += input
     const length = this.#buffer.length
 
     while (this.#pos < length) {
       let state: number | undefined = this.#entry
-      let exit = this.#entry < minAccepts ? FAIL : this.#entry
+      let exit = this.#entry < S.minAccepts ? FAIL : this.#entry
 
       do {
         const charCode = this.#buffer.charCodeAt(this.#pos)
         this.#pos += 1
         const charLookup = getCharFromCode(charCode)
-        
-        log(this.#pos, JSON.stringify(String.fromCharCode(charCode)), getCharLabel(charLookup), getStateLabel(state))
-
         state = getCellFromStateTable(state, charLookup)
-        log(this.#pos, JSON.stringify(String.fromCharCode(charCode)), getCharLabel(charLookup), getStateLabel(state))
-
-        if (state && minAccepts <= state) {
+        if (state && S.minAccepts <= state) {
           exit = state
           this.#end = this.#pos
         }
@@ -96,7 +84,6 @@ export class Lexer implements ILexer {
         }
 
         this.#_c = charCode
-        console.log('')
       } while (state && this.#pos < length)
 
       if (this.#end < this.#buffer.length || this.#closed) {
@@ -130,21 +117,27 @@ export class Lexer implements ILexer {
     }
   }
 
-  #emit(type: number, _anchor: number, end: number): number | undefined {
+  #emit(type: number, _anchor: number, end: number): void {
     if (type === errorToken) {
       const message = `Lexer error at line ${this.#line}:${
         this.#pos - this.#lastnl
       }`
       throw new SyntaxError(message)
-    } else if (type === TokenType.startTagStart) {
+    } 
+    
+    if (type === tokens.startTagStart) {
       const tagName = this.#buffer.substring(this.#anchor + 1, end)
       this.#lastTagType = type
       this.#lastStartTagName = tagName.toLowerCase()
-      this.#triggerWriteCallback([TokenLabel.startTagStart, '<'])
-      this.#triggerWriteCallback([TokenLabel.tagName, tagName])
+      this.#triggerWriteCallback(['startTagStart', '<'])
+      this.#triggerWriteCallback(['tagName', tagName])
       this.#entry = S.BeforeAttribute
-      return (this.#anchor = this.#pos = end) // NB returns
-    } else if (type === TokenType.endTagStart) {
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.endTagStart) {
       const tagName = this.#buffer.substring(this.#anchor + 2, end)
       this.#lastTagType = type
       if (
@@ -152,34 +145,41 @@ export class Lexer implements ILexer {
         this.#lastStartTagName === tagName.toLowerCase()
       )
         this.#entry = S.BeforeAttribute
-      else this.#entry === S.RcData ? TokenType.rcdata : TokenType.rawtext
+      else this.#entry === S.RcData ? tokens.rcdata : tokens.rawtext
       this.#triggerWriteCallback(['endTagStart', '</'])
       this.#triggerWriteCallback(['tagName', tagName])
-      return (this.#anchor = this.#pos = end) // NB returns
-    } else if (type === TokenType.mDeclStart) {
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.mDeclStart) {
       this.#entry = S.Bogus
-      const label = TokenIndex[TokenType.bogusStart]
-      this.#triggerWriteCallback([label, '<!'])
-      this.#triggerWriteCallback([
-        TokenIndex[TokenType.bogusData],
-        this.#buffer.substring(this.#anchor + 2, end),
-      ])
-      return (this.#anchor = this.#pos = end) // NB returns
-    } else if (type === TokenType.tagEnd) {
+      const data = this.#buffer.substring(this.#anchor + 2, end)
+      this.#triggerWriteCallback(['bogusStart', '<!'])
+      this.#triggerWriteCallback(['bogusData', data])
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.tagEnd) {
       const xmlIsh = false // needs the feedback // TODO support SVG / MathML
       this.#entry =
-        this.#lastTagType === TokenType.startTagStart && !xmlIsh
+        this.#lastTagType === tokens.startTagStart && !xmlIsh
           ? Reflect.get(contentMap, this.#lastStartTagName) || S.Main
           : S.Main
-      const ttype = this.#buffer[end - 2] === '/' ? 'tagEndAutoclose' : 'tagEnd'
-      this.#triggerWriteCallback([
-        ttype,
-        this.#buffer.substring(this.#anchor, end),
-      ])
-      return (this.#anchor = this.#pos = end) // NB returns
-    } else if (
-      type === TokenType.charRefNamed ||
-      type === TokenType.charRefLegacy
+      const type = this.#buffer[end - 2] === '/' ? 'tagEndAutoclose' : 'tagEnd'
+      const data = this.#buffer.substring(this.#anchor, end)
+      this.#triggerWriteCallback([type, data])
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (
+      type === tokens.charRefNamed ||
+      type === tokens.charRefLegacy
     ) {
       const nextChar = this.#buffer[end] || '' // FIXME case at buffer end ? need to back up...
       const parts = splitCharRef(
@@ -187,44 +187,71 @@ export class Lexer implements ILexer {
         this.#entry,
         nextChar
       )
-      for (const item of parts) this.#triggerWriteCallback(item)
-      return (this.#anchor = this.#pos = end) // NB returns
-    } else if (type === TokenType.attributeSep) {
+      for (const item of parts) {
+        this.#triggerWriteCallback(item)
+      }
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.attributeSep) {
       this.#entry = S.BeforeAttribute
-    } else if (type === TokenType.attributeName) {
+    }
+
+    if (type === tokens.attributeName) {
       this.#entry = S.BeforeAssign
-    } else if (type === TokenType.attributeAssign) {
+    }
+
+    if (type === tokens.attributeAssign) {
       this.#entry = S.BeforeValue
-    } else if (type === TokenType.valueStartQuot) {
+    }
+
+    if (type === tokens.valueStartQuot) {
       this.#entry = S.ValueQuoted
-    } else if (type === TokenType.valueStartApos) {
+    }
+
+    if (type === tokens.valueStartApos) {
       this.#entry = S.ValueAposed
-    } else if (type === TokenType.valueEnd) {
+    }
+
+    if (type === tokens.valueEnd) {
       this.#entry = S.BeforeAttribute
-    } else if (type === TokenType.unquoted) {
+    }
+
+    if (type === tokens.unquoted) {
       this.#entry = S.ValueUnquoted
-    } else if (type === TokenType.commentStart) {
+    }
+
+    if (type === tokens.commentStart) {
       this.#entry = S.BeforeCommentData
-    } else if (type === TokenType.commentData) {
+    }
+
+    if (type === tokens.commentData) {
       this.#entry = S.InCommentData
-    } else if (type === TokenType.commentEnd) {
-      this.#entry = S.Main
-    } else if (type === TokenType.bogusStart) {
-      this.#entry = S.Bogus
-    } else if (type === TokenType.bogusData) {
-      this.#entry = S.Bogus
-    } else if (type === TokenType.bogusEnd) {
+    }
+
+    if (type === tokens.commentEnd) {
       this.#entry = S.Main
     }
-    // case T.newline:      entry = entry;               break
 
-    const name = Reflect.get(TokenIndex, type)
-    this.#triggerWriteCallback([
-      name,
-      this.#buffer.substring(this.#anchor, end),
-    ])
-    this.#anchor = this.#pos = end
-    return undefined
+    if (type === tokens.bogusStart) {
+      this.#entry = S.Bogus
+    }
+
+    if (type === tokens.bogusData) {
+      this.#entry = S.Bogus
+    }
+
+    if (type === tokens.bogusEnd) {
+      this.#entry = S.Main
+    }
+
+    const name = getTokenName(type)
+    const char = this.#buffer.substring(this.#anchor, end)
+    this.#triggerWriteCallback([name, char])
+    this.#anchor = end
+    this.#pos = end
   }
 
   #triggerWriteCallback(value: LexerResult): void {

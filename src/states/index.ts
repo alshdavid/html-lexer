@@ -1,7 +1,5 @@
-import { Main, TOP } from './states'
+import * as states from './states'
 
-export * from './states'
-export * from './state-index'
-export { entryStates as states } from './entry-states'
-export { Main as initialState }
-export { TOP as minAccepts }
+export type StateType = keyof typeof states
+export type StateValue = typeof states[keyof typeof states]
+export * as states from './states'

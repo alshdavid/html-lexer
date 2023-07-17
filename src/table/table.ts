@@ -1,5 +1,5 @@
-import { TokenType } from '../tokens'
-import * as states from '../states'
+import { tokens, TokenValue } from '../tokens'
+import { states, StateValue } from '../states'
 
 // State Transitions
 // -----------------
@@ -30,12 +30,16 @@ const {
   charRefHex, charRefDecimal, lt, bogusStart, startTagStart, endTagStart, mDeclStart,
   commentStart, tagEnd, bogusEnd, commentEnd, attributeAssign, valueStartQuot,
   valueStartApos, valueEnd, charRefNamed
-} = TokenType
+} = tokens
 
 const ___ = states.STOP
 
 // prettier-ignore
-export type TableRow = [TokenType,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number]
+export type TableRow = [
+  TokenValue,StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
+             StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
+             StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
+             StateValue,StateValue,StateValue]
 
 // prettier-ignore
 export const table: TableRow[] =  [

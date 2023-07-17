@@ -1,6 +1,6 @@
-import { TokenLabel } from '../tokens'
+import { TokenType } from '../tokens'
 
-export type LexerResult = [TokenLabel, string]
+export type LexerResult = [TokenType, string]
 export type LexerResults = LexerResult[]
 export type OnWriteCallback = (token: LexerResult) => any
 export type OnEndCallback = () => any
