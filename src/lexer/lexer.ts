@@ -1,7 +1,7 @@
 import { TokenLabel, TokenType, TokenIndex } from '../tokens'
-import { states as S, minAccepts } from '../states'
-import { defaultClass, eqClass } from '../characters'
-import { table } from '../table'
+import { states as S, minAccepts, getStateLabel } from '../states'
+import { getCharFromCode, getCharLabel } from '../characters'
+import { getCellFromStateTable } from '../table'
 import { splitCharRef } from './split-char-ref'
 import { contentMap } from './content-map'
 import { FAIL, errorToken } from './tokens'
@@ -12,6 +12,11 @@ import {
   OnEndCallback,
   OnWriteCallback,
 } from './interface'
+
+const log = (...items: any[]) => console.log(items
+  .map(i => i === undefined ? '_udf' : i)
+  .map(i => i && i.toString ? i.toString() : i)
+  .map(i => (i || '').padEnd(10)).join(''))
 
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>
@@ -56,30 +61,47 @@ export class Lexer implements ILexer {
     return () => this.#onEndCallbacks.delete(callback)
   }
 
+  // < div > foo </div> \n
   write(input: string): void {
+    log(input)
     this.#buffer += input
     const length = this.#buffer.length
+
     while (this.#pos < length) {
       let state: number | undefined = this.#entry
       let exit = this.#entry < minAccepts ? FAIL : this.#entry
+
       do {
-        const c = this.#buffer.charCodeAt(this.#pos++)
-        const indexLookup = (c <= 0x7a ? eqClass[c] : defaultClass) || 0
-        state = table[state]?.[indexLookup] || undefined
-        if (state && minAccepts <= state)
-          (exit = state), (this.#end = this.#pos)
+        const charCode = this.#buffer.charCodeAt(this.#pos)
+        this.#pos += 1
+        const charLookup = getCharFromCode(charCode)
+        
+        log(this.#pos, JSON.stringify(String.fromCharCode(charCode)), getCharLabel(charLookup), getStateLabel(state))
+
+        state = getCellFromStateTable(state, charLookup)
+        log(this.#pos, JSON.stringify(String.fromCharCode(charCode)), getCharLabel(charLookup), getStateLabel(state))
+
+        if (state && minAccepts <= state) {
+          exit = state
+          this.#end = this.#pos
+        }
+
         // Newline counter
-        if (c === 0xd || c === 0xa) {
+        if (charCode === 0xD || charCode === 0xA) {
           this.#lastnl = this.#pos
+
           if (this.#_c !== 0xd) {
             this.#line += 1
           }
         }
-        this.#_c = c
+
+        this.#_c = charCode
+        console.log('')
       } while (state && this.#pos < length)
 
       if (this.#end < this.#buffer.length || this.#closed) {
-        const type = table[exit]?.[0]
+        const type = getCellFromStateTable(exit, 0)
+
         if (type) {
           this.#emit(type, this.#anchor, this.#end)
         }
@@ -88,7 +110,8 @@ export class Lexer implements ILexer {
         break
       }
     }
-    this.#buffer = this.#buffer.substr(this.#end)
+
+    this.#buffer = this.#buffer.substring(this.#end)
     this.#anchor = this.#pos = this.#end = 0
   }
 

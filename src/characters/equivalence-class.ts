@@ -135,3 +135,14 @@ eqClass[0x7c] = defaultClass
 eqClass[0x7d] = defaultClass
 eqClass[0x7e] = defaultClass
 eqClass[0x7f] = defaultClass
+
+export function getCharFromCode(charCode: number): number {
+  if (charCode > 0x7f) {
+    return defaultClass
+  }
+  const found = eqClass[charCode]
+  if (found === undefined) {
+    return 0
+  }
+  return found
+}

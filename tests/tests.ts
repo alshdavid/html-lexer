@@ -9,7 +9,8 @@ import * as fs from 'node:fs'
 
   const TEST_ONLY = process.env['TEST_ONLY']
     ? process.env['TEST_ONLY'].split(',').map((i) => parseInt(i, 10))
-    : undefined
+    : [17]
+    // : undefined
 
   let failed = false
   if (fs.existsSync(__reportdir())) {

@@ -35,7 +35,7 @@ const {
 const ___ = states.STOP
 
 // prettier-ignore
-export type TableRow = [number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number]
+export type TableRow = [TokenType,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number,number]
 
 // prettier-ignore
 export const table: TableRow[] =  [
@@ -102,3 +102,15 @@ export const table: TableRow[] =  [
 [ newline,         ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___  ], // NL_    after CRLF or LF
 //                 nul   CR    LF    other  "     '    \s     ;     #     &     =     ?     !     -     <     >     /    0-9   A-F   G-WYZ  X   ;
 ]
+
+export function getCellFromStateTable(row: number, col: number): number | undefined {
+  const foundRow = table[row]
+  if (foundRow === undefined) {
+    return undefined
+  }
+  const foundCol = foundRow[col]
+  if (foundCol === undefined) {
+    return undefined
+  }
+  return foundCol
+}

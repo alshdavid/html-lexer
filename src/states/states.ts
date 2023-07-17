@@ -4,6 +4,7 @@ export const STOP = 0
 export const Main = 1
 export const RcData = 2
 export const RawText = 3
+export const initialState = Main
 
 export const BeforeAttribute = 4
 export const BeforeAssign = 5
@@ -26,6 +27,7 @@ export const DX = 15
 export const AmpH = 16
 export const AmpX = 17
 export const TOP = 18
+export const minAccepts = TOP
 
 export const Nul = 19
 export const Wsp = 20
@@ -56,7 +58,10 @@ export const LT = 40
 export const LTs = 41
 export const LTx = 42
 
+// Tags
+/** @description Start Tag Name */
 export const STN = 43
+/** @description End Tag Name */
 export const ETN = 44
 export const DTN = 45
 

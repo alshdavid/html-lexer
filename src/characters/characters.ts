@@ -18,6 +18,12 @@ export const lt = 15
 export const gt = 16
 export const slash = 17
 export const digit = 18
+
+/** @description Characters A-F - "ABCDEF" */
 export const A_F = 19
+
+/** @description Characters G-W & "YZ" - "GHIJKLMNOPQRSTUVWYZ" */
 export const G_WYZ = 20
+
+/** @description Character "X"*/
 export const X = 21
