@@ -83,6 +83,17 @@ export const dRef_ = 57
 export const xRef_ = 58
 export const NL_ = 59
 
-// Expressions
+// Expression Open
 export const EX_ = 60
 export const EXs = 61
+
+// Expression Name
+export const EN_ = 62
+export const BeforeExpressionName = 62
+
+// Expression Close
+export const EC_ = 63
+
+// Expression End
+export const EE_ = 64
+export const EEs = 65

@@ -9,6 +9,7 @@ import * as fs from 'node:fs'
 
   const TEST_ONLY = process.env['TEST_ONLY']
     ? process.env['TEST_ONLY'].split(',').map((i) => parseInt(i, 10))
+    // : [24]
     : undefined
 
   let failed = false
@@ -33,6 +34,7 @@ import * as fs from 'node:fs'
     const html = await readFile(caseDir, 'index.html')
     const actual = tokenize(html)
 
+    // console.log(actual)
     try {
       assert.deepEqual(
         actual,

@@ -1,3 +1,4 @@
+// import { getCharLabel, getStateLabel, log } from '../debug'
 import { getTokenName, tokens } from '../tokens'
 import { states as S } from '../states'
 import { getCharFromCode } from '../characters'
@@ -12,8 +13,6 @@ import {
   OnEndCallback,
   OnWriteCallback,
 } from './interface'
-
-
 
 export class Lexer implements ILexer {
   #onWriteCallbacks: Set<OnWriteCallback>
@@ -69,7 +68,10 @@ export class Lexer implements ILexer {
       while (true) {
         const charCode = this.#buffer.charCodeAt(this.#pos)
         const charLookup = getCharFromCode(charCode)
+
+        // log(this.#pos, charCode + ' ' + JSON.stringify(String.fromCharCode(charCode)), charLookup + ' ' + getCharLabel(charLookup), state + ' ' + getStateLabel(state))
         state = getCellFromStateTable(state, charLookup)
+        // log(this.#pos, charCode + ' ' + JSON.stringify(String.fromCharCode(charCode)), charLookup + ' ' + getCharLabel(charLookup), state + ' ' + getStateLabel(state))
         
         this.#pos += 1
 
@@ -94,6 +96,7 @@ export class Lexer implements ILexer {
         }
       }
 
+      // console.log('')
       if (this.#end < this.#buffer.length || this.#closed) {
         const type = getTokenForState(exit)
 
@@ -104,6 +107,7 @@ export class Lexer implements ILexer {
         this.#pos = this.#end = this.#anchor
         break
       }
+
     }
 
     this.#buffer = this.#buffer.substring(this.#end)
@@ -173,10 +177,12 @@ export class Lexer implements ILexer {
 
     if (type === tokens.tagEnd) {
       const xmlIsh = false // needs the feedback // TODO support SVG / MathML
-      this.#entry =
-        this.#lastTagType === tokens.startTagStart && !xmlIsh
-          ? Reflect.get(contentMap, this.#lastStartTagName) || S.Main
-          : S.Main
+      if (this.#lastTagType === tokens.startTagStart && !xmlIsh) {
+        // TODO Don't use Reflect
+        this.#entry = Reflect.get(contentMap, this.#lastStartTagName) || S.Main
+      } else {
+        this.#entry = S.Main
+      }
       const type = this.#buffer[end - 2] === '/' ? 'tagEndAutoclose' : 'tagEnd'
       const data = this.#buffer.substring(this.#anchor, end)
       this.#triggerWriteCallback([type, data])
@@ -198,6 +204,44 @@ export class Lexer implements ILexer {
       for (const item of parts) {
         this.#triggerWriteCallback(item)
       }
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.expressionOpen) {
+      const name = this.#buffer.substring(this.#anchor + 2, end - 1)
+      this.#triggerWriteCallback(['expressionOpen', '{#'])
+      this.#triggerWriteCallback(['expressionName', name])
+      this.#entry = S.BeforeExpressionName
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.expressionClose) {
+      const data = this.#buffer.substring(this.#anchor, end - 1)
+      this.#triggerWriteCallback(['expressionValue', data])
+      this.#triggerWriteCallback(['expressionClose', '}'])
+      this.#entry = S.Main
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.expressionEnd) {
+      const name = this.#buffer.substring(this.#anchor + 2, end - 1)
+      this.#triggerWriteCallback(['expressionEnd', '{/'])
+      this.#triggerWriteCallback(['expressionName', name])
+      this.#triggerWriteCallback(['expressionClose', '}'])
+      this.#entry = S.Main
+      this.#anchor = end
+      this.#pos = end
+      return
+    }
+
+    if (type === tokens.expressionClose) {
+      this.#entry = S.BeforeExpressionName
       this.#anchor = end
       this.#pos = end
       return

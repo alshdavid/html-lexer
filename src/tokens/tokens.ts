@@ -34,6 +34,7 @@ export const quoted = 32
 export const tagName = 33
 export const tagEndAutoclose = 34
 export const attributeValueData = 35
+
 export const expressionOpen = 36
 export const expressionName = 37
 export const expressionSep = 38

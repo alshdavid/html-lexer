@@ -3,12 +3,15 @@
   ["tagName", "div"],
   ["tagEnd", ">"],
 
+  [ "data", "foo" ],
+  [ "space", " " ],
+
   ["expressionOpen", "{#"],
   ["expressionName", "if"],
-  ["expressionValue", "5 + 5 === 10"],
+  ["expressionValue", "true"],
   ["expressionClose", "}"],
 
-  ["data", "foo"],
+  ["data", "bar"],
 
   ["expressionEnd", "{/"],
   ["expressionName", "if"],
