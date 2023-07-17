@@ -1,2 +1,2 @@
 export * from './lexer'
-export { TokenLabel as tokenTypes } from './tokens'
+export { TokenType } from './tokens'

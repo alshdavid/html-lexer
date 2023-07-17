@@ -28,6 +28,7 @@ export const AmpH = 16
 export const AmpX = 17
 export const TOP = 18
 export const minAccepts = TOP
+export const PlainText = TOP
 
 export const Nul = 19
 export const Wsp = 20

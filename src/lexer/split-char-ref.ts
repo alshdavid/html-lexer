@@ -1,6 +1,5 @@
 import { states as S } from '../states'
 import { PREFIXED, LEGACY } from '../characters'
-import { TokenLabel } from '../tokens'
 import { LexerResults } from './interface'
 
 export function splitCharRef(
@@ -10,7 +9,7 @@ export function splitCharRef(
 ): LexerResults {
   // A semicolon-terminated, known charref
   if (PREFIXED.test(string)) {
-    return [[TokenLabel.charRefNamed, string]]
+    return [['charRefNamed', string]]
   }
 
   // Test legacy charrefs (terminated or nonterminated)
@@ -19,20 +18,20 @@ export function splitCharRef(
 
   const dataTokenType =
     entry === S.Main
-      ? TokenLabel.data
+      ? 'data'
       : entry === S.RcData
-      ? TokenLabel.rcdata
-      : TokenLabel.attributeValueData
+      ? 'rcdata'
+      : 'attributeValueData'
 
   // Not a special charref, nor one with trailing alphanums
   if (!r) {
     return terminated
-      ? [[TokenLabel.charRefNamed, string]]
+      ? [['charRefNamed', string]]
       : [[dataTokenType, string]]
   }
 
   // A semicolon terminated legacy charref
-  if (r[2] === ';') return [[TokenLabel.charRefNamed, '&' + r[1] + ';']]
+  if (r[2] === ';') return [['charRefNamed', '&' + r[1] + ';']]
 
   const inAttribute =
     entry === S.BeforeValue ||
@@ -43,7 +42,7 @@ export function splitCharRef(
   // A nonterminated legacy charref (exact match)
   if (r[2] === '') {
     if (!inAttribute || nextChar !== '=') {
-      return [[TokenLabel.charRefLegacy, string]] // And also a parse error
+      return [['charRefLegacy', string]] // And also a parse error
     }
     return [[dataTokenType, string]]
   }
@@ -52,7 +51,7 @@ export function splitCharRef(
   else {
     if (!inAttribute) {
       return [
-        [TokenLabel.charRefLegacy, '&' + r[1]],
+        ['charRefLegacy', '&' + r[1]],
         [dataTokenType, r[2] || ''],
       ]
     }
