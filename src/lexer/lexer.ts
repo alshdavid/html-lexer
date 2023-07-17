@@ -1,7 +1,7 @@
 import { getTokenName, tokens } from '../tokens'
 import { states as S } from '../states'
 import { getCharFromCode } from '../characters'
-import { getCellFromStateTable } from '../table'
+import { getCellFromStateTable, getTokenForState } from '../table'
 import { splitCharRef } from './split-char-ref'
 import { contentMap } from './content-map'
 import { FAIL, errorToken } from './tokens'
@@ -64,11 +64,13 @@ export class Lexer implements ILexer {
       let state: number | undefined = this.#entry
       let exit = this.#entry < S.minAccepts ? FAIL : this.#entry
 
-      do {
+      while (true) {
         const charCode = this.#buffer.charCodeAt(this.#pos)
-        this.#pos += 1
         const charLookup = getCharFromCode(charCode)
         state = getCellFromStateTable(state, charLookup)
+        
+        this.#pos += 1
+
         if (state && S.minAccepts <= state) {
           exit = state
           this.#end = this.#pos
@@ -84,10 +86,14 @@ export class Lexer implements ILexer {
         }
 
         this.#_c = charCode
-      } while (state && this.#pos < length)
+
+        if (state === S.STOP || this.#pos > length) {
+          break
+        }
+      }
 
       if (this.#end < this.#buffer.length || this.#closed) {
-        const type = getCellFromStateTable(exit, 0)
+        const type = getTokenForState(exit)
 
         if (type) {
           this.#emit(type, this.#anchor, this.#end)

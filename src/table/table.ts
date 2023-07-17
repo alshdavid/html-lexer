@@ -1,5 +1,5 @@
-import { tokens, TokenValue } from '../tokens'
-import { states, StateValue } from '../states'
+import { tokens } from '../tokens'
+import { states } from '../states'
 
 // State Transitions
 // -----------------
@@ -35,14 +35,7 @@ const {
 const ___ = states.STOP
 
 // prettier-ignore
-export type TableRow = [
-  TokenValue,StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
-             StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
-             StateValue,StateValue,StateValue,StateValue,StateValue,StateValue,
-             StateValue,StateValue,StateValue]
-
-// prettier-ignore
-export const table: TableRow[] =  [
+const table = [
 //                 nul   CR    LF    other  "     '    \s     ;     #     &     =     ?     !     -     <     >     /    0-9   A-F   G-WYZ  X   ;
 [ 0,               ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___,  ___  ], // STOP
 [ 0,               Nul,  CR,   NL_,  Wrd,  Wrd,  Wrd,  Wsp,  Wrd,  Wrd,  Amp,  Wrd,  Wrd,  Wrd,  Wrd,  LT,   Wrd,  Wrd,  Wrd,  Wrd,  Wrd,  Wrd  ], // Main
@@ -107,7 +100,10 @@ export const table: TableRow[] =  [
 //                 nul   CR    LF    other  "     '    \s     ;     #     &     =     ?     !     -     <     >     /    0-9   A-F   G-WYZ  X   ;
 ]
 
-export function getCellFromStateTable(row: number, col: number): number | undefined {
+export function getCellFromStateTable(row: number | undefined, col: number | undefined): number | undefined {
+  if (row === undefined || col === undefined) {
+    return undefined
+  }
   const foundRow = table[row]
   if (foundRow === undefined) {
     return undefined
@@ -117,4 +113,8 @@ export function getCellFromStateTable(row: number, col: number): number | undefi
     return undefined
   }
   return foundCol
+}
+
+export function getTokenForState(state: number | undefined): number | undefined {
+  return getCellFromStateTable(state, 0)
 }
